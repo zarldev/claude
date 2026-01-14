@@ -1,6 +1,6 @@
-# Claude Code Configuration
+# zstyle - Claude Code Configuration
 
-This directory contains Claude Code configuration for the ZarlMono workspace.
+This directory contains zstyle (zarldev's coding style) packaged as Claude Code skills, agents, and hooks.
 
 ## Directory Structure
 
@@ -99,9 +99,9 @@ Common task patterns and which skills to apply:
 
 ## Style Guide Reference
 
-All skills align with Bruno's Go design philosophy documented in:
-- `/CLAUDE.md` - Root workspace documentation
-- `/docs/zstyle.md` - Comprehensive style guide (if exists)
+All skills implement zstyle - zarldev's coding conventions:
+- `/CLAUDE.md` - Core principles overview
+- `/README.md` - Full documentation
 
 Core principles:
 - Errors tell a story
@@ -109,4 +109,4 @@ Core principles:
 - Scope-based naming
 - Pointers only when nil is valid
 - Log at boundaries
-- Context signals via select
+- Fakes over mocks
