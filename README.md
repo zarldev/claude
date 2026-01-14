@@ -4,7 +4,7 @@ Claude Code configuration for [zarldev](https://github.com/zarldev)'s Go and Rea
 
 ## What is zstyle?
 
-**zstyle** is a collaboratively developed coding style guide that emphasizes:
+**zstyle** is zarldev's personal coding style guide, built from conventions learned over years of Go and React development. It emphasizes:
 
 - **Errors tell a story** - Build narrative through wrapping, log once at boundaries
 - **Small, emergent interfaces** - Consumer-side definition, not design-first
