@@ -1,133 +1,138 @@
-# Claude Code Configuration
+# zstyle - Claude Code Configuration
 
-Personal Claude Code configuration implementing a modular skill-based system for Go and React development.
+Claude Code configuration for [zarldev](https://github.com/zarldev)'s Go and React development style.
 
-## Overview
+## What is zstyle?
 
-This repo contains Claude Code configuration that encodes a specific design philosophy and coding style. Instead of one large instructions file, knowledge is split into focused skills that activate based on context.
+**zstyle** is a collaboratively developed coding style guide that emphasizes:
+
+- **Errors tell a story** - Build narrative through wrapping, log once at boundaries
+- **Small, emergent interfaces** - Consumer-side definition, not design-first
+- **Scope-based naming** - Smaller scope = shorter names
+- **Build concrete first** - Poke the problem with reality, then abstract
+- **Fakes over mocks** - In-memory implementations for testing
+
+This repo packages zstyle into modular Claude Code skills that activate based on context.
+
+## Origin
+
+The skills in this repo are distilled from comprehensive style guides developed for the [ZarlMono](https://github.com/zarldev/zarlmono) monorepo:
+
+- `zstyle_go.md` - Go patterns, error handling, interfaces, testing
+- `zstyle_node.md` - React 19, Tailwind v4, ConnectRPC web clients
 
 ## Structure
 
 ```
 .
-├── CLAUDE.md              # Core design philosophy (cross-language)
+├── CLAUDE.md              # Core design philosophy
 └── .claude/
-    ├── skills/            # Domain knowledge modules (13 skills)
-    ├── agents/            # Specialized sub-agents (4 agents)
-    ├── commands/          # Slash commands (7 commands)
-    ├── hooks/             # Automation scripts
-    └── settings.json      # Hook configuration
+    ├── skills/            # 13 domain knowledge modules
+    ├── agents/            # 4 specialized sub-agents
+    ├── commands/          # 7 slash commands
+    ├── hooks/             # Automated checks
+    └── settings.json      # Configuration
 ```
 
 ## Skills
 
-Skills provide domain-specific knowledge that activates automatically based on keywords, file paths, and intent patterns.
+Skills activate automatically based on keywords, file paths, and intent patterns.
 
-### Go Skills
+### Go Core
 
-| Skill | Description |
-|-------|-------------|
-| `go-error-handling` | Sentinel errors, wrapping, logging at boundaries |
-| `go-interfaces` | Consumer-side, small, composition patterns |
-| `go-testing` | Table-driven tests, fakes over mocks, synctest |
-| `go-concurrency` | Goroutine lifecycle, channels, sync primitives |
-| `go-naming` | Scope-based naming, receivers, constants |
-| `go-types` | Semantic types, pointer rules, type aliases |
+| Skill | Priority | Description |
+|-------|----------|-------------|
+| `go-error-handling` | 9 | Sentinel errors, wrapping, logging at boundaries |
+| `go-interfaces` | 8 | Consumer-side, small, composition patterns |
+| `go-testing` | 8 | Table-driven, fakes over mocks, synctest |
+| `go-concurrency` | 8 | Goroutine lifecycle, channels, sync primitives |
+| `go-naming` | 7 | Scope-based naming, receivers, constants |
+| `go-types` | 7 | Semantic types, pointer rules, type aliases |
 
-### Domain Skills
+### Infrastructure
 
-| Skill | Description |
-|-------|-------------|
-| `connectrpc-patterns` | Proto design, buf generation, service handlers |
-| `database-patterns` | sqlc, migrations, repository pattern |
-| `pkg-usage` | Shared package import patterns |
+| Skill | Priority | Description |
+|-------|----------|-------------|
+| `connectrpc-patterns` | 8 | Proto design, buf generation, handlers |
+| `database-patterns` | 7 | sqlc, migrations, repository pattern |
+| `pkg-usage` | 6 | ZarlMono shared package patterns |
 
-### Frontend Skills
+### Frontend
 
-| Skill | Description |
-|-------|-------------|
-| `react-tailwind` | Tailwind v4, theme-aware colors, components |
-| `connectrpc-web` | ConnectRPC web client, React Query hooks |
-| `clerk-auth` | Clerk authentication for React and Go |
+| Skill | Priority | Description |
+|-------|----------|-------------|
+| `react-tailwind` | 6 | Tailwind v4, theme-aware colors |
+| `connectrpc-web` | 6 | ConnectRPC client, React Query hooks |
+| `clerk-auth` | 6 | Clerk authentication patterns |
 
-### Process Skills
+### Process
 
-| Skill | Description |
-|-------|-------------|
-| `systematic-debugging` | Root cause first, no blind fixes |
+| Skill | Priority | Description |
+|-------|----------|-------------|
+| `systematic-debugging` | 9 | Root cause first, no blind fixes |
 
 ## Agents
 
-Specialized sub-agents for specific workflows:
-
-- **go-code-reviewer** - Reviews Go code against style guide
-- **migration-planner** - Plans safe database migrations
-- **proto-designer** - Designs Protocol Buffer schemas
-- **github-workflow** - Handles git operations and PRs
+- **go-code-reviewer** - Reviews against zstyle
+- **migration-planner** - Safe database migrations
+- **proto-designer** - Protocol Buffer schemas
+- **github-workflow** - Git operations and PRs
 
 ## Commands
-
-Slash commands for common tasks:
 
 | Command | Description |
 |---------|-------------|
 | `/build` | Build projects |
-| `/dev` | Start development environment |
+| `/dev` | Start dev environment |
 | `/test` | Run tests with coverage |
 | `/proto` | Generate protobuf code |
-| `/migrate` | Create/run database migrations |
-| `/review` | Run code review |
-| `/onboard` | Deep exploration before implementation |
+| `/migrate` | Database migrations |
+| `/review` | Code review |
+| `/onboard` | Deep exploration |
 
 ## Hooks
 
-Automated checks on file changes:
+Automated checks on every file edit:
 
-**Go files:**
-- `gofmt` + `goimports` - Formatting
-- `go vet` - Static analysis
-- `golangci-lint` - Linting
-- `go test -race` - Tests on `*_test.go` changes
+| Files | Checks |
+|-------|--------|
+| `*.go` | gofmt, goimports, go vet, golangci-lint |
+| `*_test.go` | go test -race |
+| `*.proto` | buf lint, buf breaking |
+| `*.ts/*.tsx` | prettier, eslint, tsc --noEmit |
 
-**Proto files:**
-- `buf lint` - Linting
-- `buf breaking` - Breaking change detection
+Plus: main branch protection (blocks direct edits).
 
-**TypeScript files:**
-- `prettier` - Formatting
-- `eslint` - Linting
-- `tsc --noEmit` - Type checking
+## Key Principles
 
-**Branch protection:**
-- Blocks edits on `main` branch
+From zstyle:
 
-## Design Philosophy
+> "Errors tell a story - build narrative without stuttering, wrap at every failure point"
 
-Core principles encoded in the skills:
+> "The larger the interface, the weaker the abstraction"
 
-- **Errors tell a story** - Wrap at every failure point, log once at boundaries
-- **Small interfaces** - Consumer-side definition, emergent not design-first
-- **Scope-based naming** - Smaller scope = shorter names
-- **Pointers only when nil is valid** - Avoid pointer abuse
-- **Fakes over mocks** - In-memory implementations for testing
-- **No fire-and-forget** - Every goroutine needs lifecycle management
+> "Scope-based naming is my jam - smaller scope = shorter names"
+
+> "Poking the problem with reality - understand before abstracting"
+
+> "Never fire-and-forget - every goroutine needs lifecycle management"
 
 ## Usage
 
-1. Clone this repo (or copy `.claude/` to your project)
-2. Claude Code will automatically load skills based on context
-3. Use `/command` syntax for common workflows
-4. Skills activate via keywords, file paths, or intent patterns
+**For your own projects:**
 
-## Customization
+1. Copy `.claude/` to your repo
+2. Update `pkg-usage` skill for your packages
+3. Modify triggers in `skill-rules.json` as needed
 
-### Adding a skill
+**Skills activate when you:**
+- Mention keywords ("error handling", "interface", "goroutine")
+- Work with matching files (`*.go`, `*_test.go`, `*.proto`)
+- Express intent ("add a test", "fix the bug", "create migration")
 
-1. Create `.claude/skills/{name}/SKILL.md` with YAML frontmatter
-2. Add entry to `.claude/hooks/skill-rules.json`
-3. Update `.claude/README.md`
+## Adding Skills
 
-### Skill frontmatter
+1. Create `.claude/skills/{name}/SKILL.md`:
 
 ```yaml
 ---
@@ -136,21 +141,27 @@ description: What this skill covers
 triggers:
   keywords: [keyword1, keyword2]
   pathPatterns: ["**/*.go"]
-  intentPatterns: ["(?:create|add).*thing"]
 priority: 7
 related-skills: [other-skill]
 ---
+
+# Skill Title
+
+Content with examples...
 ```
 
-### Priority scale
+2. Add to `.claude/hooks/skill-rules.json`
+3. Update `.claude/README.md`
 
-| Priority | Category |
-|----------|----------|
-| 9 | Critical (error handling, debugging) |
-| 8 | Core patterns (interfaces, testing, concurrency) |
-| 7 | Domain patterns (types, naming, database) |
-| 6 | Specialized (Tailwind, Clerk, pkg usage) |
+## Priority Scale
+
+| Priority | Category | Examples |
+|----------|----------|----------|
+| 9 | Critical | error-handling, debugging |
+| 8 | Core | interfaces, testing, concurrency |
+| 7 | Domain | types, naming, database |
+| 6 | Specialized | Tailwind, Clerk, pkg-usage |
 
 ## License
 
-Personal configuration - use as reference or starting point for your own setup.
+MIT - Use as reference or starting point for your own Claude Code configuration.
