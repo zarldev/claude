@@ -1,11 +1,6 @@
 # Bruno's Design Philosophy
 
-Cross-language principles and coding style. See language-specific files for implementation details.
-
-## Language-Specific Guides
-
-- [CLAUDE_GO.md](./CLAUDE_GO.md) - Go backend patterns, repository/service/transport layers, embedding frontend
-- [CLAUDE_NODE.md](./CLAUDE_NODE.md) - React/TypeScript frontend patterns, Vite, TanStack Query, shadcn/ui
+Cross-language principles and coding style. Language-specific patterns are in `.claude/skills/`.
 
 ## Architecture
 
@@ -58,9 +53,6 @@ proto/ → buf generate → Go handlers + TypeScript client
 frontend/ → vite build → dist/
 Go + embed dist/ → single binary
 ```
-
-See [CLAUDE_GO.md](./CLAUDE_GO.md) for Go embedding details.
-See [CLAUDE_NODE.md](./CLAUDE_NODE.md) for frontend patterns.
 
 ### Abstraction Process
 1. Build concrete implementation first

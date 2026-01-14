@@ -1,0 +1,124 @@
+{
+  "includeCoAuthoredBy": true,
+  "env": {
+    "INSIDE_CLAUDE_CODE": "true"
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/skill-eval.sh",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "test \"$(git branch --show-current 2>/dev/null)\" != 'main' || { echo '{\"block\": true, \"message\": \"Cannot edit files on main branch. Create a feature branch first.\"}' >&2; exit 2; }",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [[ \"$CLAUDE_TOOL_INPUT_FILE_PATH\" == *.go ]]; then gofmt -w \"$CLAUDE_TOOL_INPUT_FILE_PATH\" 2>/dev/null; goimports -w \"$CLAUDE_TOOL_INPUT_FILE_PATH\" 2>/dev/null || true; fi",
+            "timeout": 10000
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [[ \"$CLAUDE_TOOL_INPUT_FILE_PATH\" == *.go ]]; then go vet \"$CLAUDE_TOOL_INPUT_FILE_PATH\" 2>&1 || true; fi",
+            "timeout": 15000
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [[ \"$CLAUDE_TOOL_INPUT_FILE_PATH\" == *.go ]]; then golangci-lint run --fast \"$CLAUDE_TOOL_INPUT_FILE_PATH\" 2>&1 | head -20 || true; fi",
+            "timeout": 30000
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [[ \"$CLAUDE_TOOL_INPUT_FILE_PATH\" == *_test.go ]]; then go test -race -v \"$(dirname $CLAUDE_TOOL_INPUT_FILE_PATH)/...\" 2>&1 | tail -30 || true; fi",
+            "timeout": 120000
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [[ \"$CLAUDE_TOOL_INPUT_FILE_PATH\" == *.proto ]]; then cd \"$(dirname $CLAUDE_TOOL_INPUT_FILE_PATH)\" && buf lint 2>&1 || true; fi",
+            "timeout": 10000
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [[ \"$CLAUDE_TOOL_INPUT_FILE_PATH\" == *.tsx ]] || [[ \"$CLAUDE_TOOL_INPUT_FILE_PATH\" == *.ts ]]; then npx prettier --write \"$CLAUDE_TOOL_INPUT_FILE_PATH\" 2>/dev/null || true; fi",
+            "timeout": 10000
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [[ \"$CLAUDE_TOOL_INPUT_FILE_PATH\" == *.tsx ]] || [[ \"$CLAUDE_TOOL_INPUT_FILE_PATH\" == *.ts ]]; then cd \"$(dirname $CLAUDE_TOOL_INPUT_FILE_PATH)\" && npx eslint --fix \"$CLAUDE_TOOL_INPUT_FILE_PATH\" 2>&1 | head -20 || true; fi",
+            "timeout": 15000
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [[ \"$CLAUDE_TOOL_INPUT_FILE_PATH\" == *.tsx ]] || [[ \"$CLAUDE_TOOL_INPUT_FILE_PATH\" == *.ts ]]; then cd \"$(git rev-parse --show-toplevel 2>/dev/null || dirname $CLAUDE_TOOL_INPUT_FILE_PATH)\" && npx tsc --noEmit 2>&1 | head -20 || true; fi",
+            "timeout": 30000
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [[ \"$CLAUDE_TOOL_INPUT_FILE_PATH\" == *.proto ]]; then cd \"$(dirname $CLAUDE_TOOL_INPUT_FILE_PATH)\" && buf breaking --against '.git#branch=main' 2>&1 | head -10 || true; fi",
+            "timeout": 15000
+          }
+        ]
+      }
+    ]
+  }
+}

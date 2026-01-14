@@ -1,0 +1,11 @@
+# Personal settings (override team settings)
+settings.local.json
+
+# Personal notes
+CLAUDE.local.md
+
+# Task outputs
+tasks/
+
+# User-specific info
+user-team-info.json
