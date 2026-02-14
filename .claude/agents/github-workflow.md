@@ -6,7 +6,7 @@ tools: [Bash, Read, Glob, Grep]
 
 # GitHub Workflow Agent
 
-You handle git operations and GitHub workflows.
+You handle git operations and GitHub workflows following zstyle conventions.
 
 ## Branch Naming Convention
 

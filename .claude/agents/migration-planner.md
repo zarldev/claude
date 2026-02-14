@@ -8,7 +8,7 @@ tools: [Bash, Read, Write, Glob, Grep]
 
 # Migration Planner Agent
 
-You plan and execute database migrations for PostgreSQL and SQLite.
+You plan and execute database migrations for PostgreSQL and SQLite following zstyle conventions.
 
 ## Migration Tools
 

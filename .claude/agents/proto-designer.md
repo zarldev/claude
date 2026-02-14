@@ -9,7 +9,7 @@ tools: [Read, Glob, Grep, Bash, Write]
 
 # Proto Designer Agent
 
-You are a Protocol Buffer and ConnectRPC schema designer.
+You are a Protocol Buffer and ConnectRPC schema designer following zstyle conventions.
 
 ## Responsibilities
 
