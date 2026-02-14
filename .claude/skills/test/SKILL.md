@@ -1,18 +1,19 @@
 ---
-description: Run Go tests with coverage and race detection
+name: test
+description: "Run Go tests with coverage and race detection"
+user-invocable: true
+argument-hint: "[path] [--cover] [--race] [--verbose]"
 allowed-tools: Bash, Read
-related-skills:
-  - go-testing
 ---
 
-# /test Command
+# /test
 
 Run Go tests with full diagnostics.
 
 ## Arguments
 
-- No arguments: Run all tests
-- `$1`: Package path or project name
+- No arguments: Run all tests (`./...`)
+- `$ARGUMENTS`: Package path or project name
 - `--cover`: Include coverage report
 - `--race`: Enable race detection
 - `--verbose`: Verbose output
@@ -20,7 +21,7 @@ Run Go tests with full diagnostics.
 ## Process
 
 1. **Determine scope** - All packages or specific path
-2. **Run tests** with race detection
+2. **Run tests** with requested flags
 3. **Show failing tests** first
 4. **Display coverage** if requested
 5. **Summarize results**
@@ -28,7 +29,6 @@ Run Go tests with full diagnostics.
 ## Execution
 
 ```bash
-# Default flags
 FLAGS="-race -timeout 5m"
 
 # Add coverage if requested
@@ -51,7 +51,6 @@ if [ -n "$1" ] && [[ "$1" != --* ]]; then
     fi
 fi
 
-# Run tests
 go test $FLAGS $PATH_ARG
 
 # Show coverage summary if generated
@@ -80,17 +79,7 @@ SKIP: 5 tests
 total: 78.5% of statements
 ```
 
-## Common Usage
-
-```bash
-/test                      # All tests
-/test timer                # Timer project only
-/test ./pkg/cache/...      # Cache package
-/test --cover              # With coverage
-/test --race --verbose     # Race + verbose
-```
-
-## Note on Hooks
+## Note
 
 Tests run automatically via PostToolUse hook when editing `*_test.go` files.
-Use this command for running tests on demand or with specific options.
+Use this skill for on-demand runs or with specific options.

@@ -1,27 +1,6 @@
 ---
 name: go-testing
-description: Go testing patterns including table-driven tests, fakes over mocks, and contract testing. Use when writing tests, creating test fixtures, or setting up test infrastructure.
-triggers:
-  keywords:
-    - test
-    - testing
-    - fake
-    - fixture
-    - benchmark
-  pathPatterns:
-    - "**/*_test.go"
-  contentPatterns:
-    - "func Test"
-    - "t\\.Run"
-    - "t\\.Error"
-    - "t\\.Context"
-  intentPatterns:
-    - "(?:write|add|create).*test"
-    - "test.*(?:for|coverage)"
-priority: 8
-related-skills:
-  - go-error-handling
-  - go-interfaces
+description: "Go testing patterns - table-driven tests, fakes over mocks, contract testing, synctest for time. Use when writing tests, creating test fixtures, or setting up test infrastructure."
 ---
 
 # Go Testing Patterns

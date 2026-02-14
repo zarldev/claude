@@ -1,24 +1,6 @@
 ---
 name: systematic-debugging
-description: Systematic debugging methodology - root cause first, no blind fixes. Use when debugging issues, investigating bugs, or fixing errors.
-triggers:
-  keywords:
-    - bug
-    - debug
-    - fix
-    - error
-    - issue
-    - broken
-    - crash
-    - failing
-  intentPatterns:
-    - "(?:fix|debug|investigate).*(?:bug|error|issue)"
-    - "(?:why|what).*(?:failing|broken|error)"
-    - "not working"
-priority: 9
-related-skills:
-  - go-error-handling
-  - go-testing
+description: "Systematic debugging methodology - root cause first, no blind fixes, four-phase framework. Use when debugging issues, investigating bugs, or when fixes keep failing."
 ---
 
 # Systematic Debugging

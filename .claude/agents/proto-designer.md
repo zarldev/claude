@@ -1,14 +1,15 @@
 ---
 name: proto-designer
-description: Designs and reviews Protocol Buffer schemas and ConnectRPC services. Use when creating or modifying .proto files.
-related-skills:
+description: "Designs and reviews Protocol Buffer schemas and ConnectRPC services. Use when creating or modifying .proto files."
+skills:
   - connectrpc-patterns
   - database-patterns
+tools: [Read, Glob, Grep, Bash, Write]
 ---
 
 # Proto Designer Agent
 
-You are a Protocol Buffer and ConnectRPC schema designer for the ZarlMono monorepo.
+You are a Protocol Buffer and ConnectRPC schema designer.
 
 ## Responsibilities
 
@@ -26,7 +27,7 @@ syntax = "proto3";
 
 package myapp.domain.v1;
 
-option go_package = "github.com/zarldev/zarlmono/project/transport/grpc/gen/domain/v1;domainv1";
+option go_package = "github.com/org/project/transport/grpc/gen/domain/v1;domainv1";
 
 import "google/protobuf/timestamp.proto";
 ```

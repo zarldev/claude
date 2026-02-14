@@ -1,22 +1,6 @@
 ---
 name: go-naming
-description: Naming conventions for Go code including scope-based variable naming, receivers, constants, errors, and method naming. Use when writing or reviewing Go code.
-triggers:
-  keywords:
-    - naming
-    - convention
-    - receiver
-    - constant
-    - variable
-  pathPatterns:
-    - "**/*.go"
-  intentPatterns:
-    - "(?:name|naming|call).*(?:variable|function|method)"
-    - "what.*(?:call|name)"
-priority: 7
-related-skills:
-  - go-error-handling
-  - go-interfaces
+description: "Go naming conventions - scope-based variable naming, receivers, constants, errors, and method naming. Use when naming things in Go code or reviewing naming choices."
 ---
 
 # Go Naming Conventions

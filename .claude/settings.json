@@ -4,18 +4,6 @@
     "INSIDE_CLAUDE_CODE": "true"
   },
   "hooks": {
-    "UserPromptSubmit": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": ".claude/hooks/skill-eval.sh",
-            "timeout": 5000
-          }
-        ]
-      }
-    ],
     "PreToolUse": [
       {
         "matcher": "Edit|Write|MultiEdit",

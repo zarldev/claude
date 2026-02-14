@@ -1,36 +1,6 @@
 ---
 name: go-concurrency
-description: Concurrency patterns including goroutine lifecycle, channels, sync primitives, and worker pools. Use when writing concurrent code, managing goroutines, or debugging race conditions.
-triggers:
-  keywords:
-    - goroutine
-    - channel
-    - mutex
-    - waitgroup
-    - concurrent
-    - parallel
-    - sync
-    - race
-  keywordPatterns:
-    - "\\bgo\\s+func"
-    - "\\bchan\\b"
-    - "\\bsync\\."
-  pathPatterns:
-    - "**/*.go"
-  contentPatterns:
-    - "go func"
-    - "sync\\.Mutex"
-    - "sync\\.WaitGroup"
-    - "make\\(chan"
-  intentPatterns:
-    - "(?:add|implement|create).*(?:concurrent|parallel|goroutine)"
-    - "(?:worker|pool).*(?:pattern|goroutine)"
-    - "(?:race|deadlock).*(?:condition|issue)"
-priority: 8
-related-skills:
-  - go-error-handling
-  - go-interfaces
-  - go-testing
+description: "Go concurrency patterns - goroutine lifecycle management, channels, sync primitives, worker pools, and errgroup. Use when writing concurrent code, managing goroutines, or debugging race conditions."
 ---
 
 # Go Concurrency Patterns

@@ -1,13 +1,14 @@
 ---
 name: migration-planner
-description: Plans and executes database migrations safely. Use when creating migrations, modifying schemas, or planning data changes.
-related-skills:
+description: "Plans and executes database migrations safely. Use when creating migrations, modifying schemas, or planning data changes."
+skills:
   - database-patterns
+tools: [Bash, Read, Write, Glob, Grep]
 ---
 
 # Migration Planner Agent
 
-You plan and execute database migrations for PostgreSQL and SQLite in the ZarlMono monorepo.
+You plan and execute database migrations for PostgreSQL and SQLite.
 
 ## Migration Tools
 

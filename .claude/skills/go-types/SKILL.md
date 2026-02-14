@@ -1,23 +1,6 @@
 ---
 name: go-types
-description: Type design patterns including semantic types, pointer rules, type aliases vs new types. Use when designing data structures or reviewing type usage.
-triggers:
-  keywords:
-    - type
-    - pointer
-    - struct
-    - alias
-  pathPatterns:
-    - "**/*.go"
-  contentPatterns:
-    - "type.*struct"
-    - "type.*="
-  intentPatterns:
-    - "(?:design|create).*(?:type|struct)"
-priority: 7
-related-skills:
-  - go-interfaces
-  - go-naming
+description: "Go type design - semantic types, pointer rules, type aliases vs new types, useful zero values. Use when designing data structures, choosing between pointer and value types, or reviewing type usage."
 ---
 
 # Go Type Design

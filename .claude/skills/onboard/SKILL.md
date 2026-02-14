@@ -1,29 +1,30 @@
 ---
-description: Deep exploration of a task before implementation
-allowed-tools: Read, Glob, Grep, Task
-related-skills:
-  - systematic-debugging
-  - pkg-usage
+name: onboard
+description: "Deep exploration and analysis of a task before implementation - requirements, dependencies, risks"
+user-invocable: true
+argument-hint: "<task description>"
+context: fork
+allowed-tools: Read, Glob, Grep, Bash, WebSearch
 ---
 
-# /onboard Command
+# /onboard
 
 Thoroughly explore a task before writing any code.
 
 ## Arguments
 
-- `$1`: Task description or ticket reference
+- `$ARGUMENTS`: Task description or ticket reference
 
 ## Process
 
 1. **Clarify requirements** - What exactly needs to be done?
-2. **Search codebase** - Find related code
+2. **Search codebase** - Find related code, existing patterns
 3. **Identify affected files** - What will change?
 4. **List dependencies** - What does this depend on?
 5. **Propose approach** - How should this be implemented?
 6. **Identify risks** - What could go wrong?
 
-## Execution
+## Investigation Steps
 
 ### 1. Requirements Clarification
 
@@ -35,21 +36,16 @@ Ask clarifying questions:
 
 ### 2. Codebase Search
 
-```bash
-# Find related files
-grep -r "related_term" --include="*.go" .
-glob "**/*related*.go"
-
-# Find existing patterns
-grep -r "similar_feature" --include="*.go" .
-```
+- Find related files and existing patterns
+- Trace data flow through layers (repo → service → transport)
+- Check for similar features already implemented
 
 ### 3. Dependency Analysis
 
 - What packages are involved?
 - What services need to change?
 - Are there database migrations needed?
-- Are there API changes needed?
+- Are there API changes (proto) needed?
 
 ### 4. Implementation Approach
 
@@ -78,26 +74,25 @@ Consider:
 - [Open question]
 
 ### Related Code
-- `pkg/service/user.go` - User service
-- `handler/http/user.go` - HTTP handlers
-- `repository/postgres/user.go` - Data access
+- `service/user.go` - User service
+- `repository/user.go` - Data access
+- `transport/grpc/user.go` - RPC handlers
 
 ### Affected Files
 | File | Change Type |
 |------|-------------|
 | service/user.go | Modify |
-| handler/user.go | Modify |
 | migrations/00042_*.sql | Create |
 
 ### Dependencies
-- Requires pkg/cache for caching
 - Uses existing UserRepository interface
+- Requires new migration
 
 ### Proposed Approach
 1. Add migration for new field
 2. Update repository layer
 3. Update service layer
-4. Update HTTP handlers
+4. Update transport handlers
 5. Add tests
 
 ### Risks
@@ -107,17 +102,4 @@ Consider:
 ### Questions
 - Should we cache the new data?
 - What's the expected data volume?
-
-### Estimated Changes
-- 4 files modified
-- 2 files created
-- 1 migration
-```
-
-## Usage
-
-```bash
-/onboard "Add user avatar upload feature"
-/onboard "TICKET-123"
-/onboard "Fix memory leak in conversation cache"
 ```
