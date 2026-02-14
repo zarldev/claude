@@ -1,5 +1,4 @@
 {
-  "includeCoAuthoredBy": true,
   "env": {
     "INSIDE_CLAUDE_CODE": "true"
   },
