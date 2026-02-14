@@ -1,44 +1,6 @@
 ---
 name: clerk-auth
-description: Clerk authentication patterns for React and Go. Use when implementing authentication, protected routes, or user management.
-triggers:
-  keywords:
-    - auth
-    - authentication
-    - clerk
-    - login
-    - user
-    - session
-    - jwt
-    - token
-    - protected
-  keywordPatterns:
-    - "\\bauth(?:entication)?\\b"
-    - "\\bclerk\\b"
-    - "\\blogin\\b"
-    - "\\bsign(?:In|Out|Up)\\b"
-  pathPatterns:
-    - "**/auth/**/*"
-    - "**/middleware/**/*"
-    - "**/lib/auth.ts"
-    - "**/hooks/useAuth.ts"
-  contentPatterns:
-    - "@clerk/clerk-react"
-    - "clerk-sdk-go"
-    - "useAuth"
-    - "useUser"
-    - "SignedIn"
-    - "SignedOut"
-  intentPatterns:
-    - "(?:add|implement).*auth"
-    - "(?:protect|secure).*route"
-    - "(?:check|verify).*(?:user|token)"
-    - "(?:login|logout|sign).*(?:in|out|up)"
-priority: 6
-related-skills:
-  - react-tailwind
-  - connectrpc-web
-  - connectrpc-patterns
+description: "Clerk authentication patterns for React and Go - protected routes, auth hooks, JWT middleware, ConnectRPC auth interceptors. Use when implementing authentication or authorization with Clerk."
 ---
 
 # Clerk Authentication Patterns

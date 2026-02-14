@@ -1,23 +1,6 @@
 ---
 name: go-interfaces
-description: Interface design patterns including consumer-side definition, composition, and satisfaction checks. Use when designing interfaces, refactoring abstractions, or reviewing interface usage.
-triggers:
-  keywords:
-    - interface
-    - abstraction
-    - dependency
-    - inject
-  contentPatterns:
-    - "type.*interface"
-    - "var _ .* = "
-  intentPatterns:
-    - "(?:design|create|define).*interface"
-    - "(?:inject|abstract).*dependency"
-priority: 8
-related-skills:
-  - go-error-handling
-  - go-testing
-  - pkg-usage
+description: "Go interface design - consumer-side definition, small interfaces, composition, and satisfaction checks. Use when designing abstractions, defining contracts, or refactoring dependencies."
 ---
 
 # Go Interface Design

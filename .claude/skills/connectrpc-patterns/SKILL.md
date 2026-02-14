@@ -1,30 +1,6 @@
 ---
 name: connectrpc-patterns
-description: ConnectRPC and Protocol Buffer patterns for Go services. Use when working with .proto files, gRPC services, buf generation, or ConnectRPC handlers.
-triggers:
-  keywords:
-    - connectrpc
-    - grpc
-    - proto
-    - protobuf
-    - buf
-  pathPatterns:
-    - "**/*.proto"
-    - "**/buf.yaml"
-    - "**/buf.gen.yaml"
-    - "**/*connect*.go"
-  contentPatterns:
-    - "connectrpc.com/connect"
-    - "syntax.*proto3"
-    - "buf generate"
-  intentPatterns:
-    - "(?:create|add).*(?:rpc|grpc|proto)"
-    - "(?:generate|buf).*proto"
-priority: 8
-related-skills:
-  - go-error-handling
-  - go-interfaces
-  - connectrpc-web
+description: "ConnectRPC and Protocol Buffer patterns for Go services - proto file design, buf generation, service handlers, interceptors, streaming, and error mapping. Use when working with .proto files, gRPC services, or ConnectRPC handlers."
 ---
 
 # ConnectRPC Patterns

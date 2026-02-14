@@ -1,30 +1,6 @@
 ---
 name: go-error-handling
-description: Error handling patterns following Bruno's philosophy - errors tell a story, wrap at every failure point, log once at boundaries, context signals via select
-triggers:
-  keywords:
-    - error
-    - err
-    - wrap
-    - sentinel
-    - Errorf
-  keywordPatterns:
-    - "\\berr\\b"
-    - "\\bErr[A-Z]\\w+"
-  pathPatterns:
-    - "**/*.go"
-  contentPatterns:
-    - "fmt\\.Errorf"
-    - "errors\\.New"
-    - "errors\\.Is"
-  intentPatterns:
-    - "(?:handle|wrap|create|define).*error"
-    - "error.*(?:handling|pattern)"
-priority: 9
-related-skills:
-  - go-interfaces
-  - go-testing
-  - database-patterns
+description: "Go error handling patterns - wrapping with fmt.Errorf, sentinel errors, error chain design, context cancellation via select, and boundary logging. Use when writing, reviewing, or refactoring error handling in Go code."
 ---
 
 # Go Error Handling

@@ -1,33 +1,6 @@
 ---
 name: database-patterns
-description: Database and repository patterns for PostgreSQL, MongoDB, and SQLite. Use when working with repositories, migrations, sqlc, or database queries.
-triggers:
-  keywords:
-    - database
-    - repository
-    - migration
-    - sqlc
-    - postgres
-    - sqlite
-    - mongodb
-  pathPatterns:
-    - "**/migrations/*.sql"
-    - "**/queries/*.sql"
-    - "**/sqlc.yaml"
-    - "**/repository/*.go"
-  contentPatterns:
-    - "pgxpool"
-    - "sqlc"
-    - "goose"
-    - "ErrNoRows"
-  intentPatterns:
-    - "(?:create|add).*(?:migration|table)"
-    - "(?:database|db).*(?:query|pattern)"
-priority: 7
-related-skills:
-  - go-error-handling
-  - go-testing
-  - go-interfaces
+description: "Database and repository patterns - sqlc, Goose migrations, PostgreSQL/SQLite/MongoDB repositories, in-memory fakes for testing, transaction helpers. Use when working with databases, writing queries, or creating migrations."
 ---
 
 # Database Patterns

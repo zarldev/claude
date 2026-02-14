@@ -12,87 +12,79 @@ Claude Code configuration for [zarldev](https://github.com/zarldev)'s Go and Rea
 - **Build concrete first** - Poke the problem with reality, then abstract
 - **Fakes over mocks** - In-memory implementations for testing
 
-This repo packages zstyle into modular Claude Code skills that activate based on context.
-
-## Origin
-
-The skills in this repo are distilled from comprehensive style guides developed for the [ZarlMono](https://github.com/zarldev/zarlmono) monorepo:
-
-- `zstyle_go.md` - Go patterns, error handling, interfaces, testing
-- `zstyle_node.md` - React 19, Tailwind v4, ConnectRPC web clients
+This repo packages zstyle into modular Claude Code skills, rules, and agents.
 
 ## Structure
 
 ```
 .
 ├── CLAUDE.md              # Core design philosophy
+├── .mcp.json              # MCP server configuration (GitHub)
 └── .claude/
-    ├── skills/            # 13 domain knowledge modules
+    ├── rules/             # Always-on path-scoped rules
+    ├── skills/            # 13 knowledge + 7 invocable skills
     ├── agents/            # 4 specialized sub-agents
-    ├── commands/          # 7 slash commands
-    ├── hooks/             # Automated checks
-    └── settings.json      # Configuration
+    └── settings.json      # Hooks and configuration
 ```
+
+## Rules (Always-On)
+
+Path-scoped rules load automatically when matching files are touched:
+
+| Rule | Paths | Covers |
+|------|-------|--------|
+| `go.md` | `**/*.go` | Error handling, naming, types, interfaces, testing, concurrency |
+| `react.md` | `**/*.tsx`, `**/*.jsx`, `**/*.ts` | Theme colors, components, state handling, styling |
+| `proto.md` | `**/*.proto` | Enums, field numbers, naming, compatibility |
 
 ## Skills
 
-Skills activate automatically based on keywords, file paths, and intent patterns.
+### Knowledge Skills
 
-### Go Core
+Detailed reference that Claude loads based on context (description matching):
 
-| Skill | Priority | Description |
-|-------|----------|-------------|
-| `go-error-handling` | 9 | Sentinel errors, wrapping, logging at boundaries |
-| `go-interfaces` | 8 | Consumer-side, small, composition patterns |
-| `go-testing` | 8 | Table-driven, fakes over mocks, synctest |
-| `go-concurrency` | 8 | Goroutine lifecycle, channels, sync primitives |
-| `go-naming` | 7 | Scope-based naming, receivers, constants |
-| `go-types` | 7 | Semantic types, pointer rules, type aliases |
+| Category | Skill | Description |
+|----------|-------|-------------|
+| Go Core | `go-error-handling` | Sentinel errors, wrapping, logging at boundaries |
+| Go Core | `go-interfaces` | Consumer-side, small, composition patterns |
+| Go Core | `go-testing` | Table-driven, fakes over mocks, synctest |
+| Go Core | `go-concurrency` | Goroutine lifecycle, channels, sync primitives |
+| Go Core | `go-naming` | Scope-based naming, receivers, constants |
+| Go Core | `go-types` | Semantic types, pointer rules, type aliases |
+| Infra | `connectrpc-patterns` | Proto design, buf generation, handlers |
+| Infra | `database-patterns` | sqlc, migrations, repository pattern |
+| Infra | `pkg-usage` | Shared package patterns |
+| Frontend | `react-tailwind` | Tailwind v4, theme-aware colors |
+| Frontend | `connectrpc-web` | ConnectRPC client, TanStack Query hooks |
+| Frontend | `clerk-auth` | Clerk authentication patterns |
+| Process | `systematic-debugging` | Root cause first, no blind fixes |
 
-### Infrastructure
+### Invocable Skills
 
-| Skill | Priority | Description |
-|-------|----------|-------------|
-| `connectrpc-patterns` | 8 | Proto design, buf generation, handlers |
-| `database-patterns` | 7 | sqlc, migrations, repository pattern |
-| `pkg-usage` | 6 | ZarlMono shared package patterns |
+Slash commands available during sessions:
 
-### Frontend
-
-| Skill | Priority | Description |
-|-------|----------|-------------|
-| `react-tailwind` | 6 | Tailwind v4, theme-aware colors |
-| `connectrpc-web` | 6 | ConnectRPC client, React Query hooks |
-| `clerk-auth` | 6 | Clerk authentication patterns |
-
-### Process
-
-| Skill | Priority | Description |
-|-------|----------|-------------|
-| `systematic-debugging` | 9 | Root cause first, no blind fixes |
+| Skill | Description |
+|-------|-------------|
+| `/build [project]` | Build one or all projects |
+| `/dev <project>` | Start dev environment with hot reload |
+| `/test [path] [--cover]` | Run tests with coverage and race detection |
+| `/proto [project]` | Generate and validate protobuf code |
+| `/migrate <cmd> [name]` | Create or run database migrations |
+| `/review [file\|--pr]` | Code review against zstyle conventions |
+| `/onboard <task>` | Deep exploration before implementation |
 
 ## Agents
 
-- **go-code-reviewer** - Reviews against zstyle
-- **migration-planner** - Safe database migrations
-- **proto-designer** - Protocol Buffer schemas
-- **github-workflow** - Git operations and PRs
-
-## Commands
-
-| Command | Description |
-|---------|-------------|
-| `/build` | Build projects |
-| `/dev` | Start dev environment |
-| `/test` | Run tests with coverage |
-| `/proto` | Generate protobuf code |
-| `/migrate` | Database migrations |
-| `/review` | Code review |
-| `/onboard` | Deep exploration |
+| Agent | Description | Preloaded Skills |
+|-------|-------------|------------------|
+| `go-code-reviewer` | Reviews against zstyle | All Go core skills |
+| `migration-planner` | Safe database migrations | database-patterns |
+| `proto-designer` | Protocol Buffer schemas | connectrpc-patterns, database-patterns |
+| `github-workflow` | Git operations and PRs | - |
 
 ## Hooks
 
-Automated checks on every file edit:
+Automated checks configured in `settings.json`:
 
 | Files | Checks |
 |-------|--------|
@@ -101,11 +93,15 @@ Automated checks on every file edit:
 | `*.proto` | buf lint, buf breaking |
 | `*.ts/*.tsx` | prettier, eslint, tsc --noEmit |
 
-Plus: main branch protection (blocks direct edits).
+Plus: main branch protection (blocks direct edits on main).
+
+## MCP Servers
+
+| Server | Purpose |
+|--------|---------|
+| `github` | GitHub API access via MCP protocol |
 
 ## Key Principles
-
-From zstyle:
 
 > "Errors tell a story - build narrative without stuttering, wrap at every failure point"
 
@@ -121,28 +117,23 @@ From zstyle:
 
 **For your own projects:**
 
-1. Copy `.claude/` to your repo
+1. Copy `.claude/` and `.mcp.json` to your repo
 2. Update `pkg-usage` skill for your packages
-3. Modify triggers in `skill-rules.json` as needed
+3. Adjust rules in `.claude/rules/` for your conventions
 
 **Skills activate when you:**
-- Mention keywords ("error handling", "interface", "goroutine")
-- Work with matching files (`*.go`, `*_test.go`, `*.proto`)
-- Express intent ("add a test", "fix the bug", "create migration")
+- Work with matching files (`*.go`, `*_test.go`, `*.proto`, `*.tsx`)
+- Mention relevant topics ("error handling", "interface", "goroutine")
+- Use slash commands (`/build`, `/test`, `/review`)
 
 ## Adding Skills
 
-1. Create `.claude/skills/{name}/SKILL.md`:
+Create `.claude/skills/{name}/SKILL.md`:
 
 ```yaml
 ---
 name: skill-name
-description: What this skill covers
-triggers:
-  keywords: [keyword1, keyword2]
-  pathPatterns: ["**/*.go"]
-priority: 7
-related-skills: [other-skill]
+description: "What this skill covers and when to use it"
 ---
 
 # Skill Title
@@ -150,17 +141,17 @@ related-skills: [other-skill]
 Content with examples...
 ```
 
-2. Add to `.claude/hooks/skill-rules.json`
-3. Update `.claude/README.md`
+For invocable skills, add:
 
-## Priority Scale
-
-| Priority | Category | Examples |
-|----------|----------|----------|
-| 9 | Critical | error-handling, debugging |
-| 8 | Core | interfaces, testing, concurrency |
-| 7 | Domain | types, naming, database |
-| 6 | Specialized | Tailwind, Clerk, pkg-usage |
+```yaml
+---
+name: skill-name
+description: "What this skill does"
+user-invocable: true
+argument-hint: "<required> [optional]"
+allowed-tools: Bash, Read
+---
+```
 
 ## License
 

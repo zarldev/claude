@@ -1,36 +1,37 @@
 ---
-description: Generate and validate Protocol Buffer code
+name: proto
+description: "Generate and validate Protocol Buffer code using buf"
+user-invocable: true
+argument-hint: "[project]"
 allowed-tools: Bash, Read, Glob, Grep
-related-skills:
-  - connectrpc-patterns
 ---
 
-# /proto Command
+# /proto
 
 Generate and validate Protocol Buffer code using Buf.
 
 ## Arguments
 
-- No arguments: Generate for all projects
-- `$1`: Project name (e.g., `timer`, `mindmint`)
+- No arguments: Generate for current project
+- `$ARGUMENTS`: Project name or path
 
 ## Process
 
-1. **Find proto files** in the specified project or all projects
-2. **Lint** the proto files with `buf lint`
-3. **Generate** code with `buf generate`
+1. **Find proto files** in the specified project or current directory
+2. **Lint** with `buf lint`
+3. **Generate** with `buf generate`
 4. **Verify** generated Go code compiles
 5. **Show** what was generated
 
 ## Execution
 
 ```bash
-# If project specified
+# Navigate to project if specified
 if [ -n "$1" ]; then
     cd "$1"
 fi
 
-# Find buf.yaml locations
+# Find buf config
 find . -name "buf.yaml" -o -name "buf.gen.yaml" | head -5
 
 # Lint proto files
@@ -56,7 +57,7 @@ Report:
 - Generated files (Go and TypeScript)
 - Compilation status
 
-## Note on Hooks
+## Note
 
 `buf lint` runs automatically via PostToolUse hook when editing `.proto` files.
-Use this command to generate code or run full validation.
+Use this skill to generate code or run full validation.

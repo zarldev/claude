@@ -1,29 +1,6 @@
 ---
 name: react-tailwind
-description: React and Tailwind v4 patterns for frontend development. Use when working with React components, Tailwind CSS, or UI styling.
-triggers:
-  keywords:
-    - react
-    - tailwind
-    - component
-    - styling
-    - frontend
-  pathPatterns:
-    - "**/*.tsx"
-    - "**/*.jsx"
-    - "**/tailwind.config.*"
-    - "**/index.css"
-  contentPatterns:
-    - "className="
-    - "bg-primary"
-    - "text-foreground"
-  intentPatterns:
-    - "(?:create|style|build).*component"
-    - "(?:tailwind|css).*(?:class|style)"
-priority: 6
-related-skills:
-  - connectrpc-web
-  - clerk-auth
+description: "React and Tailwind v4 patterns - theme-aware colors, component composition, shadcn/ui, loading/error/empty states. Use when building or styling React components."
 ---
 
 # React + Tailwind v4 Patterns

@@ -52,7 +52,19 @@ Protobuf is the single source of truth:
 - Generate TypeScript client code (ConnectRPC)
 - No manual API type definitions
 
-## Skills Reference
+## Rules (Always-On)
+
+Path-scoped rules in `.claude/rules/` load automatically when matching files are touched:
+
+| Rule | Paths | Covers |
+|------|-------|--------|
+| `go.md` | `**/*.go` | Error handling, naming, types, interfaces, testing, concurrency |
+| `react.md` | `**/*.tsx`, `**/*.jsx`, `**/*.ts` | Theme colors, components, state handling, styling |
+| `proto.md` | `**/*.proto` | Enums, field numbers, naming, compatibility |
+
+## Skills (On-Demand)
+
+Detailed reference skills in `.claude/skills/` activate based on context:
 
 | Category | Skills |
 |----------|--------|
@@ -60,6 +72,18 @@ Protobuf is the single source of truth:
 | Infrastructure | `connectrpc-patterns`, `database-patterns`, `pkg-usage` |
 | Frontend | `react-tailwind`, `connectrpc-web`, `clerk-auth` |
 | Process | `systematic-debugging` |
+
+### User-Invocable Skills
+
+| Skill | Description |
+|-------|-------------|
+| `/build` | Build one or all projects |
+| `/dev` | Start dev environment with hot reload |
+| `/test` | Run tests with coverage and race detection |
+| `/proto` | Generate and validate protobuf code |
+| `/migrate` | Create or run database migrations |
+| `/review` | Code review against zstyle conventions |
+| `/onboard` | Deep exploration before implementation |
 
 ## Quick Rules
 

@@ -1,26 +1,6 @@
 ---
 name: pkg-usage
-description: ZarlMono shared package usage patterns. Use when importing or using any package from pkg/, understanding the dependency graph, or choosing the right shared package.
-triggers:
-  keywords:
-    - package
-    - import
-    - pkg
-    - shared
-  pathPatterns:
-    - "**/pkg/**/*.go"
-  contentPatterns:
-    - "github.com/zarldev/zarlmono/pkg"
-    - "pkg/cache"
-    - "pkg/options"
-    - "pkg/zsync"
-  intentPatterns:
-    - "(?:use|import).*(?:package|pkg)"
-    - "which.*package"
-priority: 6
-related-skills:
-  - go-interfaces
-  - go-types
+description: "Shared package usage patterns - options, zsync, cache, filesystem, zlog, messagebus, docstore. Use when importing shared packages or choosing the right utility from pkg/."
 ---
 
 # ZarlMono Shared Package Usage

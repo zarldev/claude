@@ -1,12 +1,12 @@
 ---
 name: github-workflow
-description: Handles git operations, branch management, and pull requests. Use for git workflow tasks.
-allowed-tools: Bash(git:*,gh:*), Read, Glob
+description: "Handles git operations, branch management, and pull requests. Use for git workflow tasks."
+tools: [Bash, Read, Glob, Grep]
 ---
 
 # GitHub Workflow Agent
 
-You handle git operations and GitHub workflows for the ZarlMono monorepo.
+You handle git operations and GitHub workflows following zstyle conventions.
 
 ## Branch Naming Convention
 

@@ -1,40 +1,6 @@
 ---
 name: connectrpc-web
-description: ConnectRPC web client patterns for React frontends. Use when making API calls, handling streaming responses, or integrating with backend services.
-triggers:
-  keywords:
-    - api
-    - fetch
-    - query
-    - mutation
-    - tanstack
-    - react-query
-    - connectrpc
-    - client
-  keywordPatterns:
-    - "\\buse(?:Query|Mutation)\\b"
-    - "\\bclient\\b"
-  pathPatterns:
-    - "**/hooks/use*.ts"
-    - "**/hooks/use*.tsx"
-    - "**/gen/**/*_connect.ts"
-    - "**/lib/api.ts"
-    - "**/lib/clients.ts"
-  contentPatterns:
-    - "@connectrpc/connect"
-    - "createPromiseClient"
-    - "createConnectTransport"
-    - "useQuery"
-    - "useMutation"
-  intentPatterns:
-    - "(?:call|fetch|query).*api"
-    - "(?:create|use).*(?:hook|client)"
-    - "(?:streaming|real-?time).*(?:data|update)"
-priority: 6
-related-skills:
-  - react-tailwind
-  - connectrpc-patterns
-  - clerk-auth
+description: "ConnectRPC web client patterns for React - TanStack Query integration, transport with auth interceptors, mutations with cache invalidation, streaming responses. Use when making API calls from React frontends."
 ---
 
 # ConnectRPC Web Client Patterns
